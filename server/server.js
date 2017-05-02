@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/../client'));
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('chat message', function(msg) {
-  	console.log('someone said: ', msg);
+  	console.log('a user says: ', msg);
   	io.emit('chat message', msg);
   });
   socket.on('disconnect', function(){
