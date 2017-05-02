@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "express": "^4.15.2",
+    "hashmap": "^2.1.0",
     "socket.io": "^1.7.3"
   },
   "env": {

@@ -6,7 +6,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container-fluid">
+  <div id="welcome" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+    <p>Enter Your Name: </p>
+    <form id="name_form" action="">
+      <div class="input-group">
+        <input id="name_input" type="text" class="form-control" autocomplete="off" required autofocus>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">Submit</button>
+        </span>
+      </div>
+    </form>
+    </div>
+  </div>
+  </div>
+  <div hidden id="chat" class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
         <div class="panel panel-default">
@@ -14,15 +29,15 @@
             <ul class="list-group" id="messages"></ul>
           </div>
           <div class="panel-footer">
-            <form action="">
-                <div class="input-group">
-                  <input id="message_input" type="text" class="form-control" autocomplete="off" placeholder="Type here...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">Submit</button>
-                  </span>
-                </div>
-                </form>
-            </div>
+            <form id="chat_form" action="">
+              <div class="input-group">
+              <input id="chat_input" type="text" class="form-control" autocomplete="off" placeholder="Type here...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">Submit</button>
+                </span>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
