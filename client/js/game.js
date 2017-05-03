@@ -5,13 +5,13 @@ $(document).ready(function(){
     socket.emit("new player", $("#name_input").val());
     $("#welcome").hide();
     $("#play").show();
-    MainLoop();
+    tick();
     return false;
   });
 });
 
-socket.on('player position', function(name, ypos){
-  game.players.set(name, ypos);
+socket.on('player position', function(name, y){
+  game.players.set(name, y);
 });
 
 function Game() {
@@ -23,7 +23,6 @@ function Game() {
   this.context = canvas.getContext("2d");
   this.context.fillStyle = "white";
   this.mouse = new MouseListener();
-
   this.players = new Map();
 }
 
@@ -36,7 +35,10 @@ Game.prototype.draw = function(){
 }
 
 Game.prototype.update = function(){
-  socket.emit("mouse update", toRelativePos(this.mouse.ypos, this.height));
+  if (this.mouse.hasChanged) {
+    socket.emit("mouse update", toRelativePos(this.mouse.ypos, this.height));
+    hasChanged = false;
+  }
 }
 
 function toAbsolutePos(rel_pos, max_pos) {
@@ -48,16 +50,20 @@ function toRelativePos(abs_pos, max_pos) {
 }
 
 function MouseListener() {
+  this.hasChanged = false;
   this.ypos = 0;
 }
 
 $("#game").mousemove(function(event) {
-  game.mouse.ypos = event.pageY;
+  if (game.mouse.ypos!=event.pageY) {
+    game.mouse.ypos = event.pageY;
+    game.mouse.hasChanged = true;
+  }
 });
 
-function MainLoop() {
+function tick() {
   game.update();
   game.draw();
     // fps = 100 ms per frame or 1000/100 fps
-    setTimeout(MainLoop, 100);
+    setTimeout(tick, 100);
   }
