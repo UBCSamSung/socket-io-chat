@@ -11,9 +11,23 @@ app.use(express.static(__dirname + '/../client'));
 var nameMap = new Map(); // key: socket.id; value: name
 var yposMap = new Map(); // key: socket.id; value: ypos
 
+function Game() {
+	// everything is stored in relative position 
+  this.width = 100;
+  this.height = 100;
+  this.context = canvas.getContext("2d");
+  this.context.fillStyle = "white";
+  this.mouse = new MouseListener();
+
+  this.players = new Map();
+}
+
 io.on('connection', function(socket){
 	console.log('a user connected');
 	socket.on('chat message', function(msg) {
+		if (!nameMap.has(socket.id)) {
+			socket.disconnect;
+		}
 		var full_msg = nameMap.get(socket.id) + ": " + msg;
 		console.log(full_msg);
 		io.emit('chat message', full_msg);
@@ -32,11 +46,16 @@ io.on('connection', function(socket){
 	})
 	socket.on('mouse update', function(ypos) {
 		// var full_msg = "player "+nameMap.get(socket.id)+"'s mouse has moved to ypos: "+ypos;
+		if (!nameMap.has(socket.id)) {
+			socket.disconnect;
+		}
 		yposMap.set(socket.id, ypos);
 		io.emit('player position', nameMap.get(socket.id), ypos);
 	});
 
 	socket.on('disconnect', function(){
+		nameMap.delete(socket.id);
+		yposMap.delete(socket.id);
 		console.log('user disconnected');
 	});
 });
