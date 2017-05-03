@@ -2,6 +2,11 @@ var game = new Game();
 
 $(document).ready(function(){
   $("#play_button").click(function() {
+    if ($("#name_input").val().length==0) {
+        $("#name_input").val("");
+        $("#name_input").focus();
+        return false;
+    }
     socket.emit("new player", $("#name_input").val());
     $("#welcome").hide();
     $("#play").show();
