@@ -4,10 +4,12 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
+var global = require('./global');
+var logic = require('./logic');
 app.use(express.static(__dirname + '/../client'));
 
-var nameMap = new Map();
-var yposMap = new Map();
+var nameMap = new Map(); // key: socket.id; value: name
+var yposMap = new Map(); // key: socket.id; value: ypos
 
 io.on('connection', function(socket){
 	console.log('a user connected');
