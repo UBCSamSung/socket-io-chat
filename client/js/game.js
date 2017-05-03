@@ -26,14 +26,17 @@ function Game() {
 }
 
 Game.prototype.draw = function(){
+  this.context.clearRect(0, 0, this.width, this.height);
   for (var [key, value] of positionMap.entries()) {
     console.log(key + ' = ' + value);
+    this.context.fillText(key, this.width/2, value);
   }
 }
 
 Game.prototype.update = function(){
   // send mouse position
   // console.log("mouse at: "+this.mouse.ypos);
+
   socket.emit("mouse update", this.mouse.ypos);
 }
 
