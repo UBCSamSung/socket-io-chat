@@ -1,9 +1,5 @@
-var socket = io();
-
 $(document).ready(function(){
-  $("#name_form").submit(function(){
-    var form = $("#name_input");
-    var name = $("#name_input").val();
+  $("#chat_button").click(function() {
     $("#welcome").hide();
     $("#chat").show();
     socket.emit("new user", $("#name_input").val());
@@ -20,5 +16,3 @@ $(document).ready(function(){
     window.scrollTo(0, document.body.scrollHeight);
   });
 });
-
-function usernamePopup() {}

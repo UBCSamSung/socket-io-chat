@@ -7,19 +7,20 @@
 </head>
 <body>
   <div id="welcome" class="container-fluid">
-  <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-    <p>Enter Your Name: </p>
-    <form id="name_form" action="">
-      <div class="input-group">
-        <input id="name_input" type="text" class="form-control" autocomplete="off" required autofocus>
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="submit">Submit</button>
-        </span>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <p>Enter Your Name: </p>
+        <div class="input-group">
+          <form id="name_form" action="">
+            <input id="name_input" type="text" class="form-control" autocomplete="off" required autofocus>
+          </form>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" id="chat_button" value="chat">Chat</button>
+            <button class="btn btn-default" type="submit" id="play_button" value="play">Play</button>
+          </span>
+        </div>
       </div>
-    </form>
     </div>
-  </div>
   </div>
   <div hidden id="chat" class="container-fluid">
     <div class="row">
@@ -31,7 +32,7 @@
           <div class="panel-footer">
             <form id="chat_form" action="">
               <div class="input-group">
-              <input id="chat_input" type="text" class="form-control" autocomplete="off" placeholder="Type here...">
+                <input id="chat_input" type="text" class="form-control" autocomplete="off" placeholder="Type here...">
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">Submit</button>
                 </span>
@@ -42,9 +43,15 @@
       </div>
     </div>
   </div>
+  <div hidden id="play" class="container-fluid">
+    <canvas id="game" height="750px" width="1500px">
+    </canvas>
+  </div>
 
 </body>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="./js/client.js"></script>
 <script src="./js/chat.js"></script>
+<script src="./js/game.js"></script>
 </html>
