@@ -2,13 +2,12 @@ var express = require('express');
 var app     = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var HashMap = require('hashmap');
 var port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/../client'));
 
-var nameMap = new HashMap();
-var yposMap = new HashMap();
+var nameMap = new Map();
+var yposMap = new Map();
 
 io.on('connection', function(socket){
 	console.log('a user connected');

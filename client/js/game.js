@@ -1,5 +1,4 @@
 var game = new Game();
-var positionMap = new Map();
 
 $(document).ready(function(){
   $("#play_button").click(function() {
@@ -10,8 +9,9 @@ $(document).ready(function(){
     return false;
   });
 });
+
 socket.on('player position', function(name, ypos){
-  positionMap.set(name, ypos);
+  game.players.set(name, ypos);
 });
 
 function Game() {
@@ -22,21 +22,18 @@ function Game() {
   this.context.fillStyle = "white";
   this.mouse = new MouseListener();
 
-  this.players = {};
+  this.players = new Map();
 }
 
 Game.prototype.draw = function(){
   this.context.clearRect(0, 0, this.width, this.height);
-  for (var [key, value] of positionMap.entries()) {
+  for (var [key, value] of this.players.entries()) {
     console.log(key + ' = ' + value);
     this.context.fillText(key, this.width/2, value);
   }
 }
 
 Game.prototype.update = function(){
-  // send mouse position
-  // console.log("mouse at: "+this.mouse.ypos);
-
   socket.emit("mouse update", this.mouse.ypos);
 }
 
@@ -51,6 +48,6 @@ $("#game").mousemove(function(event) {
 function MainLoop() {
   game.update();
   game.draw();
-    // Call the main loop again at a frame rate of 30fps
-    setTimeout(MainLoop, 33.3333);
+    // fps = 100 ms per frame or 1000/100 fps
+    setTimeout(MainLoop, 100);
   }
