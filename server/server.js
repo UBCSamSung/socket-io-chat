@@ -9,6 +9,7 @@ var GameState = require('./GameState');
 app.use(express.static(__dirname + '/../client'));
 
 var nameMap = new Map();
+// gameState store essential game parameters
 var gameState = new GameState();
 
 

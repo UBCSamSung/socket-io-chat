@@ -1,4 +1,4 @@
-// define GameState object
+// gameState store essential game parameters
 function GameState() {
 	this.isPaused = false;
 	// everything is stored in relative position 
